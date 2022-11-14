@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+
+<body>
+  <div th:fragment="navbar">
+    <nav class="navbar navbar-expand-lg shadow-sm navbar-light bg-light"
+      style="padding: 8px 8px; display: flex; justify-content: space-between;">
+      <h3 style="margin: 0; ">SAMAN MOTORS</h3>
+      <div style="display: flex; justify-content: flex-end;">
+        <form th:action="@{/logout}" method="post">
+          <input type="submit" value="Logout"
+            style="border: none; background-color: #0d6efd; color: rgb(255, 255, 255); border-radius: 3px;">
+        </form>
+      </div>
+    </nav>
+  </div>
+</body>
+
+</html>
