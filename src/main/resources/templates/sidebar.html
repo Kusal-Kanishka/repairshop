@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 
 <body>
-  <div class="d-flex flex-column flex-shrink-0 bg-dark " style="width: 250px;" th:fragment="side_bar(activeMenu)">
+  <div class="d-flex flex-column flex-shrink-0 bg-dark " style="width: 250px; height: 100vh;"
+    th:fragment="side_bar(activeMenu)">
     <div class="sidebar-header">
       <a class="nav-link link-light" th:href="@{/home}" style="background-color: darkcyan; margin-bottom: 10px;">
         <h3 style=" color: white; margin: 0;">RSM</h3>
@@ -23,7 +24,7 @@
         </a>
       </li>
       <li>
-        <a th:href="@{/new-job}" class="nav-link link-light" method="post"
+        <a th:href="@{/#}" class="nav-link link-light" method="post"
           th:classappend="${activeMenu == 'New_Job'} ? 'active': ''">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle"
             viewBox="0 0 16 16">
@@ -31,7 +32,7 @@
             <path
               d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
           </svg>
-          <span style="padding-left: 8px;">New Job</span>
+          <span style="padding-left: 8px;">Jobs</span>
         </a>
       </li>
       <li>
@@ -58,7 +59,51 @@
           <span style="padding-left: 8px;">Compleat Jobs</span>
         </a>
       </li>
-
+      <li>
+        <a th:href="@{/#}" class="nav-link link-light" th:classappend="${activeMenu == 'Compleat_Jobs'} ? 'active': ''">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle"
+            viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path
+              d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+          </svg>
+          <span style="padding-left: 8px;">Vehicles</span>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/#}" class="nav-link link-light" th:classappend="${activeMenu == 'Compleat_Jobs'} ? 'active': ''">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle"
+            viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path
+              d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+          </svg>
+          <span style="padding-left: 8px;">Customers</span>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/#}" class="nav-link link-light" th:classappend="${activeMenu == 'Compleat_Jobs'} ? 'active': ''">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle"
+            viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path
+              d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+          </svg>
+          <span style="padding-left: 8px;">faults and fixes</span>
+        </a>
+      </li>
+      <li>
+        <a th:href="@{/employees}" class="nav-link link-light"
+          th:classappend="${activeMenu == 'Compleat_Jobs'} ? 'active': ''">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-circle"
+            viewBox="0 0 16 16">
+            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+            <path
+              d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z" />
+          </svg>
+          <span style="padding-left: 8px;">Employs</span>
+        </a>
+      </li>
     </ul>
   </div>
 </body>

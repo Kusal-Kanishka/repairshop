@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.manager.repairshop.entity.Jobs;
+import com.manager.repairshop.entity.Job;
 import com.manager.repairshop.entity.ReplacedItem;
 
 import com.manager.repairshop.repository.JobRepository;
@@ -37,33 +37,30 @@ public class JobController {
     @GetMapping("/new-job")
     public String viewNewJobPage(Model model) {
 
-        Jobs jobs = new Jobs();
+        Job jobs = new Job();
         model.addAttribute("job", jobs);
         return "newJob";
     }
 
     @PostMapping("/addNewJob")
-    public String addNewJob(Jobs jobs,
+    public String addNewJob(Job job,
             @RequestParam("vehicle_number") String vehicleNumber,
-            @RequestParam("vehicle_model") String vehicleModel,
-            @RequestParam("date") String date,
-            @RequestParam("customer_name") String customerName,
-            @RequestParam("mobile_number") String mobileNumber,
+            @RequestParam("date") String date, @RequestParam("employeeId") Integer employeeId,
             @RequestParam("customer_story") String customerStory) {
 
         if (date.isEmpty()) {
             date = java.time.LocalDate.now().toString();
         }
 
-        jobs.setVehicle_number(vehicleNumber);
-        jobs.setVehicle_model(vehicleModel);
-        jobs.setDate(date);
-        jobs.setCustomer_name(customerName);
-        jobs.setMobile_number(mobileNumber);
-        jobs.setCustomer_story(customerStory);
-        jobs.setStatus("pending");
+        System.out.println(employeeId);
 
-        jobService.saveJob(jobs);
+        job.setVehicle_number(vehicleNumber);
+        job.setDate(date);
+        job.setCustomer_story(customerStory);
+        job.setStatus("pending");
+        job.setEmployeeId(employeeId);
+
+        jobService.saveJob(job);
 
         return "redirect:/home";
     }
@@ -71,7 +68,7 @@ public class JobController {
     @GetMapping("/updateJob/{id}")
     public String viewEditJob(Model model, @PathVariable(name = "id") Integer id) {
 
-        Optional<Jobs> jobById = jobService.getJobById(id);
+        Optional<Job> jobById = jobService.getJobById(id);
         model.addAttribute("job", jobById);
 
         List<ReplacedItem> replacedItems = replacedItemService.getAll();
@@ -93,7 +90,7 @@ public class JobController {
     }
 
     @PostMapping("/updateJob")
-    public String updateJob(Jobs jobs,
+    public String updateJob(Job jobs,
             @RequestParam("id") Integer id,
             @RequestParam("vehicle_number") String vehicleNumber,
             @RequestParam("vehicle_model") String vehicleModel,
@@ -109,10 +106,7 @@ public class JobController {
 
         jobs.setId(id);
         jobs.setVehicle_number(vehicleNumber);
-        jobs.setVehicle_model(vehicleModel);
         jobs.setDate(date);
-        jobs.setCustomer_name(customerName);
-        jobs.setMobile_number(mobileNumber);
         jobs.setCustomer_story(customerStory);
         jobs.setStatus(status);
 
@@ -141,14 +135,14 @@ public class JobController {
 
     @GetMapping("/pending-jobs")
     public String viewPendingJobsPage(Model model) {
-        List<Jobs> pendingJobList = jobService.getPendingJobs();
+        List<Job> pendingJobList = jobService.getPendingJobs();
         model.addAttribute("pendingJobList", pendingJobList);
         return "pendingJobs";
     }
 
     @GetMapping("/compleat-jobs")
     public String viewCompleatJobsPage(Model model) {
-        List<Jobs> compleatJobList = jobService.getCompleatJobs();
+        List<Job> compleatJobList = jobService.getCompleatJobs();
         model.addAttribute("compleatJobList", compleatJobList);
         return "compleatJobs";
     }

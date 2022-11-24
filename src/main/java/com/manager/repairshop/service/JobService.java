@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.manager.repairshop.entity.Jobs;
+import com.manager.repairshop.entity.Job;
 import com.manager.repairshop.repository.JobRepository;
 
 @Service
@@ -15,19 +15,19 @@ public class JobService {
     @Autowired
     private JobRepository jobRepository;
 
-    public List<Jobs> getAll() {
+    public List<Job> getAll() {
         return jobRepository.findAll();
     }
 
-    public List<Jobs> getPendingJobs() {
+    public List<Job> getPendingJobs() {
         return jobRepository.getPendingJobs();
     }
 
-    public List<Jobs> getCompleatJobs() {
+    public List<Job> getCompleatJobs() {
         return jobRepository.getDoneJobs();
     }
 
-    public Optional<Jobs> getJobById(Integer id) {
+    public Optional<Job> getJobById(Integer id) {
         return jobRepository.findById(id);
     }
 
@@ -35,8 +35,8 @@ public class JobService {
         jobRepository.deleteById(id);
     }
 
-    public Jobs saveJob(Jobs jobs) {
+    public Job saveJob(Job job) {
 
-        return jobRepository.save(jobs);
+        return jobRepository.save(job);
     }
 }
