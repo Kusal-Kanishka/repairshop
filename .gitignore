@@ -1,6 +1,8 @@
 /.mvn
 /.vscode
 /target
+/.settings
+/bin
 
 
 # Compiled class file

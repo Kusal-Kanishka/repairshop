@@ -1,37 +1,22 @@
 package com.manager.repairshop.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class VehicleDetail {
 
-@Entity
-@Table(name = "vehicles")
-public class Vehicle {
-
-    @Id
-    @Column
     private String vehicleNumber;
-    @Column
     private String brand;
-    @Column
     private String model;
-    @Column
-    private Integer customerId;
-    @Column
+    private String customerName;
     private String createdDate;
 
-    public Vehicle(String vehicleNumber, String brand, String model, Integer customerId, String createdDate) {
+    public VehicleDetail(String vehicleNumber, String brand, String model, String customerName, String createdDate) {
         this.vehicleNumber = vehicleNumber;
         this.brand = brand;
         this.model = model;
-        this.customerId = customerId;
+        this.customerName = customerName;
         this.createdDate = createdDate;
     }
 
-    public Vehicle() {
+    public VehicleDetail() {
     }
 
     public String getVehicleNumber() {
@@ -58,12 +43,12 @@ public class Vehicle {
         this.model = model;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public String getCreatedDate() {
@@ -73,4 +58,5 @@ public class Vehicle {
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
+
 }

@@ -10,6 +10,9 @@ public class JobDetail {
     private String customerMobile;
     private String status;
 
+    public JobDetail() {
+    }
+
     public JobDetail(Integer jobId, String createdDate, String vehicleNumber, String vehicleModel, String customerName,
             String customerMobile, String status) {
         this.jobId = jobId;

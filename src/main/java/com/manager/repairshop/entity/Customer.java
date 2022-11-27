@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +28,9 @@ public class Customer {
         this.customerName = customerName;
         this.contactNumber = contactNumber;
         this.createdDate = createdDate;
+    }
+
+    public Customer() {
     }
 
     public Integer getId() {
