@@ -19,7 +19,7 @@ public class ReplacedItem {
     private String itemName;
 
     @Column
-    private String itemPrice;
+    private Float itemPrice;
 
     @Column
     private String jobId;
@@ -27,7 +27,7 @@ public class ReplacedItem {
     public ReplacedItem() {
     }
 
-    public ReplacedItem(Integer id, String itemName, String itemPrice, String jobId) {
+    public ReplacedItem(Integer id, String itemName, Float itemPrice, String jobId) {
         this.id = id;
         this.itemName = itemName;
         this.itemPrice = itemPrice;
@@ -50,11 +50,11 @@ public class ReplacedItem {
         this.itemName = itemName;
     }
 
-    public String getItemPrice() {
+    public Float getItemPrice() {
         return itemPrice;
     }
 
-    public void setItemPrice(String itemPrice) {
+    public void setItemPrice(Float itemPrice) {
         this.itemPrice = itemPrice;
     }
 

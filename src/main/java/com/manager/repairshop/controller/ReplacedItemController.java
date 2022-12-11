@@ -31,7 +31,7 @@ public class ReplacedItemController {
 
     @PostMapping(value = "/addNewReplacedItem")
     public String addNewReplacedItem(@RequestParam("jobId") String jobId,
-            @RequestParam("itemName") String itemName, @RequestParam("itemPrice") String itemPrice,
+            @RequestParam("itemName") String itemName, @RequestParam("itemPrice") Float itemPrice,
             ReplacedItem replacedItem) {
 
         replacedItem.setJobId(jobId);

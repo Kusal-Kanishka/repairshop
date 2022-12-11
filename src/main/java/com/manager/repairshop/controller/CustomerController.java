@@ -1,7 +1,7 @@
 package com.manager.repairshop.controller;
 
-import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -51,7 +51,16 @@ public class CustomerController {
         return "redirect:/customers";
     }
 
-    @PostMapping("/customer/{id}/update")
+    @GetMapping("/customer/{id}/update")
+    public String getCustomerUpdateView(@PathVariable(name = "id") Integer id, Model model) {
+
+        Optional<Customer> customer = customerService.getCustomerById(id);
+        model.addAttribute("customer", customer);
+
+        return "customers/customerUpdate";
+    }
+
+    @PostMapping("/customer/saveUpdate")
     public String updateCustomer(Customer customer,
             @RequestParam("customerName") String customerName,
             @RequestParam("contactNumber") String contactNumber, @RequestParam("nic") String nic) {

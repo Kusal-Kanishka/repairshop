@@ -53,27 +53,31 @@ public class MainController {
     }
 
     @GetMapping("/home")
-    public String viewHomePage(HttpServletRequest httpServletRequest, Model model, JobDetail jobDetails,
+    public String viewHomePage(HttpServletRequest httpServletRequest, Model model, JobDetail jobDetails, Job jobs,
+            Customer customer,
             Vehicle vehicle) throws NoSuchElementException {
+
+        model.addAttribute("job", jobs);
+
+        model.addAttribute("vehicle", vehicle);
+
+        model.addAttribute("customer", customer);
+
+        // get employee list and Send employee list to frontend new job form employee
+        // dropdown.
+        List<Employee> employees = employeeService.findAll();
+        model.addAttribute("employees", employees);
+
+        // get customer list and Send customer list to frontend new vehicle form
+        // customer dropdown.
+        List<Customer> customers = customerService.findAll();
+        model.addAttribute("customers", customers);
 
         // create new pending job list with full details
         List<JobDetail> pendinJobList = new ArrayList<>();
 
         // get pending job list
         List<Job> pendingJobs = jobService.getPendingJobs();
-
-        // get employee list and Send employee list to frontend.
-        List<Employee> employees = employeeService.findAll();
-        model.addAttribute("employees", employees);
-
-        // get customer list and Send customer list to frontend.
-        List<Customer> customers = customerService.findAll();
-        model.addAttribute("customers", customers);
-
-        Customer customer = new Customer();
-        model.addAttribute("customer", customer);
-
-        model.addAttribute("vehicle", vehicle);
 
         // add data into "pendingJobList" with other
         for (Job job : pendingJobs) {
@@ -113,9 +117,6 @@ public class MainController {
 
         }
         model.addAttribute("pendingJobList", pendinJobList);
-
-        Job jobs = new Job();
-        model.addAttribute("job", jobs);
 
         // Locale currLocale = httpServletRequest.getLocale();
         // String countryCode = currLocale.getCountry();

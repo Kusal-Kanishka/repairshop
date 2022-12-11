@@ -18,6 +18,10 @@ public class VehicleService {
         return vehicleRepository.findAll();
     }
 
+    public Vehicle getVehicleByVIN(String vehicleNumber) {
+        return vehicleRepository.getVehicleByVIN(vehicleNumber);
+    }
+
     public List<Vehicle> getVehicleByVehicleNumber(String vehicleNumber) {
         return vehicleRepository.getVehicleByVehicleNumber(vehicleNumber);
     }

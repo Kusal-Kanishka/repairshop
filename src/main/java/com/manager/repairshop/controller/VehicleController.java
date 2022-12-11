@@ -8,12 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.manager.repairshop.entity.Customer;
 import com.manager.repairshop.entity.Vehicle;
 import com.manager.repairshop.entity.VehicleDetail;
+import com.manager.repairshop.repository.VehicleRepository;
 import com.manager.repairshop.service.CustomerService;
 import com.manager.repairshop.service.VehicleService;
 
@@ -25,6 +27,9 @@ public class VehicleController {
 
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    VehicleRepository vehicleRepository;
 
     @GetMapping("/vehicles")
     public String getVehicleList(Model model) {
@@ -77,7 +82,23 @@ public class VehicleController {
 
         vehicleService.save(vehicle);
 
-        return "redirect:/";
+        return "redirect:/vehicles";
+    }
+
+    @GetMapping("/vehicle/{vehicleNumber}/update")
+    public String getCustomerUpdateView(@PathVariable(name = "vehicleNumber") String vehicleNumber, Model model) {
+
+        System.out.println(vehicleNumber);
+
+        Vehicle vehicle = vehicleService.getVehicleByVIN(vehicleNumber);
+        model.addAttribute("vehicle", vehicle);
+
+        List<Customer> customers = customerService.findAll();
+        model.addAttribute("customers", customers);
+
+        // Optional<Customer> customer = customerService.getCustomerById(vehicleNumber);
+
+        return "vehicles/vehicleUpdate";
     }
 
 }

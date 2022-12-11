@@ -23,4 +23,7 @@ public class ReplacedItemService {
         return replacedItemRepository.save(replacedItem);
     }
 
+    public List<ReplacedItem> getReplacedItemsById(String jobId) {
+        return replacedItemRepository.getReplacedItemsByJobId(jobId);
+    }
 }

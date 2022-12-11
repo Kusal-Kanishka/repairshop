@@ -13,7 +13,8 @@ public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
 
     // fined by vehicle number
     // @Query("SELECT v FROM Vehicle v WHERE v.vehicle_number = 'KN-4909'")
-    // public Vehicle getVehicleByVehicleNumber();
+    @Query(value = ("select * from `repairshop`.`vehicles` where `vehicle_number` = :vehicleNumber"), nativeQuery = true)
+    public Vehicle getVehicleByVIN(String vehicleNumber);
 
     // fined by vehicle number
     @Query("SELECT v FROM Vehicle v WHERE v.vehicleNumber =:vehicleNumber ")

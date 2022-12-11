@@ -16,10 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.manager.repairshop.entity.Customer;
+import com.manager.repairshop.entity.Employee;
 import com.manager.repairshop.entity.Job;
 import com.manager.repairshop.entity.ReplacedItem;
-
+import com.manager.repairshop.entity.Vehicle;
 import com.manager.repairshop.repository.JobRepository;
+import com.manager.repairshop.repository.VehicleRepository;
+import com.manager.repairshop.service.CustomerService;
+import com.manager.repairshop.service.EmployeeService;
 import com.manager.repairshop.service.JobService;
 
 @Controller
@@ -33,6 +38,15 @@ public class JobController {
 
     @Autowired
     ReplacedItemService replacedItemService;
+
+    @Autowired
+    EmployeeService employeeService;
+
+    @Autowired
+    CustomerService customerService;
+
+    @Autowired
+    VehicleRepository vehicleRepository;
 
     @GetMapping("/new-job")
     public String viewNewJobPage(Model model) {
@@ -65,28 +79,37 @@ public class JobController {
         return "redirect:/home";
     }
 
-    @GetMapping("/updateJob/{id}")
+    @GetMapping("/viewJob/{id}")
     public String viewEditJob(Model model, @PathVariable(name = "id") Integer id) {
+
+        model.addAttribute("jobId", id);
 
         Optional<Job> jobById = jobService.getJobById(id);
         model.addAttribute("job", jobById);
 
-        List<ReplacedItem> replacedItems = replacedItemService.getAll();
+        Optional<Employee> employee = employeeService.getEmployeeById(jobById.get().getEmployeeId());
+        String employeeName = employee.get().getFirstName() + " " + employee.get().getLastName();
+        model.addAttribute("employeeName", employeeName);
 
-        List<ReplacedItem> replacedItemsForJob = new ArrayList<>();
+        List<ReplacedItem> ReplacedItemsList = replacedItemService.getReplacedItemsById(id.toString());
 
-        for (ReplacedItem replacedItem : replacedItems) {
-            if (replacedItem.getJobId().equals(id.toString())) {
+        List<Vehicle> vData = vehicleRepository.getVehicleByVehicleNumber(jobById.get().getVehicle_number());
 
-                replacedItemsForJob.add(replacedItem);
-            }
-            System.out.println(replacedItem.getId());
-
+        for (Vehicle vehicle : vData) {
+            String vBrand = vehicle.getBrand();
+            model.addAttribute("vBrand", vBrand);
+            String vModel = vehicle.getModel();
+            model.addAttribute("vModel", vModel);
+            Optional<Customer> customer = customerService.getCustomerById(vehicle.getCustomerId());
+            String customerName = customer.get().getCustomerName();
+            model.addAttribute("customerName", customerName);
+            String mobileNumber = customer.get().getContactNumber();
+            model.addAttribute("mobileNumber", mobileNumber);
         }
-        model.addAttribute("jobId", id);
-        model.addAttribute("replacedItems", replacedItemsForJob);
 
-        return "jobEdit";
+        model.addAttribute("replacedItems", ReplacedItemsList);
+
+        return "job/jobView";
     }
 
     @PostMapping("/updateJob")
@@ -124,27 +147,25 @@ public class JobController {
     @RequestMapping(value = "/deletePendingJob", method = { RequestMethod.DELETE, RequestMethod.GET })
     public String deletePendingJobById(Integer id) {
         jobService.delete(id);
-        return "redirect:/pending-jobs";
+        return "redirect:/jobs";
     }
 
     @RequestMapping(value = "/deleteCompletedJob", method = { RequestMethod.DELETE, RequestMethod.GET })
     public String deleteCompletedJobById(Integer id) {
         jobService.delete(id);
-        return "redirect:/compleat-jobs";
+        return "redirect:/jobs";
     }
 
-    @GetMapping("/pending-jobs")
-    public String viewPendingJobsPage(Model model) {
+    @GetMapping("/jobs")
+    public String viewCompleatJobsPage(Model model) {
+
         List<Job> pendingJobList = jobService.getPendingJobs();
         model.addAttribute("pendingJobList", pendingJobList);
-        return "pendingJobs";
-    }
 
-    @GetMapping("/compleat-jobs")
-    public String viewCompleatJobsPage(Model model) {
         List<Job> compleatJobList = jobService.getCompleatJobs();
         model.addAttribute("compleatJobList", compleatJobList);
-        return "compleatJobs";
+
+        return "job/jobsData";
     }
 
 }
